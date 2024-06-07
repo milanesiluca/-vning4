@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -8,6 +9,9 @@ namespace SkalProj_Datastrukturer_Minne
         /// The main method, vill handle the menues for the program
         /// </summary>
         /// <param name="args"></param>
+        /// 
+        private static List<string> theList = new List<string>();
+        private static List<string> errorLog = new List<string>();
         static void Main()
         {
 
@@ -18,10 +22,11 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
-                    + "\n0. Exit the application");
+                    + "\n0. Exit the application\n");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
                 {
+                    Console.Write("Chose your option: ");
                     input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
                 }
                 catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
@@ -78,7 +83,89 @@ namespace SkalProj_Datastrukturer_Minne
             //string value = input.substring(1);
 
             //switch(nav){...}
+            char input = ' ';
+            bool exit = false;
+            string? inputStr = null;
+            Console.Clear();
+            do {
+                
+                Console.WriteLine("Available option:"
+                        + "\n'+' and string to add an element to the list"
+                        + "\n'-' and string to remove an element to the list"
+                        + "\n'1' write the complete list"
+                        + "\n'*' Exit\n");
+                try
+                {
+                    Console.Write("Chose your option: ");
+                    inputStr = Console.ReadLine()!.Trim();
+                    input = inputStr![0]; 
+                }
+                catch (Exception ex)
+                {
+                    errorLog.Add("No valid Key inserted: " + ex.GetType().Name);
+                }
+                finally
+                {
+                    Console.WriteLine();
+                }
+
+                switch (input)
+                {
+                    case '+':
+                        if (!string.IsNullOrEmpty(inputStr) && inputStr.Trim().Length > 1)
+                            theList.Add(inputStr.Substring(1, inputStr.Length - 1).Trim());
+                        else
+                            Console.WriteLine("The input cannot be only '+'\n");
+                        break;
+                    case '-':
+                        if (!string.IsNullOrEmpty(inputStr) && inputStr.Trim().Length > 1)
+                        {
+                            int existingElement = checkElementList(inputStr.Substring(1, inputStr.Length - 1));
+                            if (existingElement != -1 )
+                                theList.RemoveAt(existingElement);
+                            else
+                                Console.WriteLine("The Item is not in the list");
+                        }   
+                        else
+                            Console.WriteLine("The input cannot be only '-'\n");
+                        break;
+                    case '*':
+                        exit = true;
+                        break;
+                    case '1':
+                        Console.Clear();
+                        foreach (string str in theList)
+                            Console.WriteLine(str);
+                        Console.WriteLine($"\nItems in the list: {theList.Count}\n");
+                        break;
+                    case '%':
+                        Console.WriteLine($"Execption List: {errorLog.Count} error found");
+                        foreach (var strErr in errorLog)
+                            Console.WriteLine(strErr);
+                        Console.WriteLine();
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Clear();
+                        Console.WriteLine("invalid Input: your input must have '+' or '-' as first char");
+                        Console.ResetColor();
+                        break;
+                }
+
+            } while (!exit);
+            Console.Clear() ;
         }
+
+        private static int checkElementList(string inputStr)
+        {
+            for (int i = 0; i < theList.Count; i++)
+            {
+                if (theList[i] == inputStr.Trim())
+                    return i;
+            }
+            return - 1;      
+        }
+
 
         /// <summary>
         /// Examines the datastructure Queue
