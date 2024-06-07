@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -12,6 +13,9 @@ namespace SkalProj_Datastrukturer_Minne
         /// 
         private static List<string> theList = new List<string>();
         private static List<string> errorLog = new List<string>();
+
+        private static Queue<string> theQueue = new Queue<string>();
+        private static Stack<string> theStack = new Stack<string>();
         static void Main()
         {
 
@@ -90,9 +94,9 @@ namespace SkalProj_Datastrukturer_Minne
             do {
                 
                 Console.WriteLine("Available option:"
-                        + "\n'+' and string to add an element to the list"
-                        + "\n'-' and string to remove an element to the list"
-                        + "\n'1' write the complete list"
+                        + "\n'+' and string to add an element to the List"
+                        + "\n'-' and string to remove an element from the List"
+                        + "\n'1' write the complete List"
                         + "\n'*' Exit\n");
                 try
                 {
@@ -139,10 +143,7 @@ namespace SkalProj_Datastrukturer_Minne
                         Console.WriteLine($"\nItems in the list: {theList.Count}\n");
                         break;
                     case '%':
-                        Console.WriteLine($"Execption List: {errorLog.Count} error found");
-                        foreach (var strErr in errorLog)
-                            Console.WriteLine(strErr);
-                        Console.WriteLine();
+                        ShowErrorLog();
                         break;
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -166,6 +167,15 @@ namespace SkalProj_Datastrukturer_Minne
             return - 1;      
         }
 
+        private static void ShowErrorLog() {
+            Console.WriteLine($"Execption List: {errorLog.Count} error found");
+            foreach (var strErr in errorLog)
+                Console.WriteLine(strErr);
+            Console.WriteLine();
+        }
+
+
+
 
         /// <summary>
         /// Examines the datastructure Queue
@@ -177,6 +187,71 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+
+            char input = ' ';
+            bool exit = false;
+            string? inputStr = null;
+            Console.Clear();
+            do {
+
+                Console.WriteLine("Available option:"
+                        + "\n'+' and string to add an element to the Queue"
+                        + "\n'-' to remove a String from the Queue"
+                        + "\n'1' write the complete Queue"
+                        + "\n'*' Exit\n");
+
+                try
+                {
+                    Console.Write("Chose your option: ");
+                    inputStr = Console.ReadLine()!.Trim();
+                    input = inputStr![0];
+                }
+                catch (Exception ex)
+                {
+                    errorLog.Add("No valid Key inserted: " + ex.GetType().Name);
+                }
+                finally
+                {
+                    Console.WriteLine();
+                }
+
+                switch (input)
+                {
+                    case '+':
+                        if (!string.IsNullOrEmpty(inputStr) && inputStr.Trim().Length > 1)
+                            theQueue.Enqueue(inputStr.Substring(1, inputStr.Length - 1).Trim());
+                        else
+                            Console.WriteLine("The input cannot be only '+'\n");
+                        break;
+                    case '-':
+                        if (theQueue.Count > 0) {
+                            theQueue.Dequeue();
+                            Console.WriteLine($"\nThe first inserted element has been removed\n");
+                        } else
+                            Console.WriteLine($"\nNo element in the queue\n");
+
+                        break;
+                    case '*':
+                        exit = true;
+                        break;
+                    case '1':
+                        Console.Clear();
+                        foreach (string str in theQueue)
+                            Console.WriteLine(str);
+                        Console.WriteLine($"\nItems in the Queue: {theQueue.Count}\n");
+                        break;
+                    case '%':
+                        ShowErrorLog();
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Clear();
+                        Console.WriteLine("invalid Input: your input must have '+' or '-' as first char");
+                        Console.ResetColor();
+                        break;
+                }
+
+            } while (!exit);
         }
 
         /// <summary>
@@ -189,6 +264,74 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+
+            char input = ' ';
+            bool exit = false;
+            string? inputStr = null;
+            Console.Clear();
+            do
+            {
+
+                Console.WriteLine("Available option:"
+                        + "\n'+' and string to add an element to the Stack"
+                        + "\n'-' to remove an element from the Stack"
+                        + "\n'1' write the complete Stack"
+                        + "\n'*' Exit\n");
+
+                try
+                {
+                    Console.Write("Chose your option: ");
+                    inputStr = Console.ReadLine()!.Trim();
+                    input = inputStr![0];
+                }
+                catch (Exception ex)
+                {
+                    errorLog.Add("No valid Key inserted: " + ex.GetType().Name);
+                }
+                finally
+                {
+                    Console.WriteLine();
+                }
+
+                switch (input)
+                {
+                    case '+':
+                        if (!string.IsNullOrEmpty(inputStr) && inputStr.Trim().Length > 1)
+                            theStack.Push(inputStr.Substring(1, inputStr.Length - 1).Trim());
+                        else
+                            Console.WriteLine("The input cannot be only '+'\n");
+                        break;
+                    case '-':
+                        if (theStack.Count > 0)
+                        {
+                            theStack.Pop();
+                            Console.WriteLine($"\nThe last inserted element has been removed\n");
+                        }
+                        else
+                            Console.WriteLine($"\nNo element in the queue\n");
+
+                        break;
+                    case '*':
+                        exit = true;
+                        break;
+                    case '1':
+                        Console.Clear();
+                        foreach (string str in theStack)
+                            Console.WriteLine(str);
+                        Console.WriteLine($"\nItems in the Queue: {theStack.Count}\n");
+                        break;
+                    case '%':
+                        ShowErrorLog();
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Clear();
+                        Console.WriteLine("invalid Input: your input must have '+' or '-' as first char");
+                        Console.ResetColor();
+                        break;
+                }
+
+            } while (!exit);
         }
 
         static void CheckParanthesis()
