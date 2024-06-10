@@ -375,7 +375,7 @@ namespace SkalProj_Datastrukturer_Minne
                         if (stackCh.First() != '{')
                         {
                             Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
-                            
+                            return;
                         }
                         else stackCh.Pop();
                         break;
@@ -383,7 +383,7 @@ namespace SkalProj_Datastrukturer_Minne
                         if (stackCh.First() != '[')
                         {
                             Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
-                            
+                            return;
                         }
                         else stackCh.Pop();
                         break;
@@ -391,7 +391,7 @@ namespace SkalProj_Datastrukturer_Minne
                         if (stackCh.First() != '(')
                         {
                             Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
-                           
+                            return;
                         }
                         else stackCh.Pop();
                         break;
@@ -400,10 +400,9 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
 
                 }
-            
-            }
-            
 
+                
+            }
             Console.WriteLine("\nThe paranthesis in the inserted string are correct\n");
 
         }
