@@ -342,6 +342,43 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            Console.Write("Insert a String: ");
+            string vattelaApesca = Console.ReadLine();
+            if (string.IsNullOrEmpty(vattelaApesca)) {
+                Console.WriteLine("No string inserted (idiot!)");
+                return;
+            }
+
+            char[] charArray = vattelaApesca.ToCharArray();
+
+            List<char> monsterList = new List<char>() { '{', '[', '(', ')', ']', '}' };
+            var parList = charArray
+                          .Where(parCh => monsterList.Contains(parCh)).ToList();
+
+            if (parList.Count % 2 != 0) {
+                Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
+                return;
+            }
+
+
+            List<string> correctStfList = new List<string>() { "()", "{}", "[]"}; 
+            for (int i = 0; i < parList.Count / 2; i++) {
+                for (int j = parList.Count - 1; j > parList.Count / 2 - 1 && j < parList.Count
+                    ; j--) {
+                    string correctStr = parList[i].ToString() + parList[j].ToString();
+                    if (correctStfList.Contains(correctStr))
+                        continue;
+                    else
+                    {
+                        Console.WriteLine("\nThe paranthesis in the inserted string are not correct\n");
+                        return;
+                    }
+                       
+                }
+            }
+
+            Console.WriteLine("\nThe paranthesis in the inserted string are correct\n");
+
         }
 
     }
