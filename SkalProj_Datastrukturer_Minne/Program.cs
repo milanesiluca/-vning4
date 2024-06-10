@@ -343,7 +343,7 @@ namespace SkalProj_Datastrukturer_Minne
              */
 
             Console.Write("Insert a String: ");
-            string? vattelaApesca = Console.ReadLine();
+            string? vattelaApesca = Console.ReadLine().Replace(" ", "").Trim();
             if (string.IsNullOrEmpty(vattelaApesca)) {
                 Console.WriteLine("No string inserted (idiot!)");
                 return;
@@ -362,20 +362,7 @@ namespace SkalProj_Datastrukturer_Minne
 
 
             List<string> correctStfList = new List<string>() { "()", "{}", "[]"}; 
-            for (int i = 0; i < parList.Count / 2; i++) {
-                for (int j = parList.Count - 1; j > parList.Count / 2 - 1 && j < parList.Count
-                    ; j--) {
-                    string correctStr = parList[i].ToString() + parList[j].ToString();
-                    if (correctStfList.Contains(correctStr))
-                        continue;
-                    else
-                    {
-                        Console.WriteLine("\nThe paranthesis in the inserted string are not correct\n");
-                        return;
-                    }
-                       
-                }
-            }
+            
 
             Console.WriteLine("\nThe paranthesis in the inserted string are correct\n");
 
