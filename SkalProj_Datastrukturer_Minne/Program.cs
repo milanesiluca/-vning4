@@ -401,8 +401,14 @@ namespace SkalProj_Datastrukturer_Minne
 
                 }
 
-                
             }
+
+            if (stackCh.Count != 0)
+            {
+                Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
+                return;
+            }
+
             Console.WriteLine("\nThe paranthesis in the inserted string are correct\n");
 
         }
