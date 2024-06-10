@@ -345,7 +345,7 @@ namespace SkalProj_Datastrukturer_Minne
             Console.Write("Insert a String: ");
             string? vattelaApesca = Console.ReadLine()!.Replace(" ", "").Trim();
             if (string.IsNullOrEmpty(vattelaApesca)) {
-                Console.WriteLine("No string inserted (idiot!)");
+                Console.WriteLine("No string inserted");
                 return;
             }
 
