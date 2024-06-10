@@ -360,7 +360,48 @@ namespace SkalProj_Datastrukturer_Minne
                 return;
             }
 
+            Stack<char> stackCh = new Stack<char>();
+            
 
+            foreach (char ch in parList) {
+
+                switch (ch) {
+                    case '[':
+                    case '{':
+                    case '(':
+                        stackCh.Push(ch);
+                        break;
+                    case '}':
+                        if (stackCh.First() != '{')
+                        {
+                            Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
+                            
+                        }
+                        else stackCh.Pop();
+                        break;
+                    case ']':
+                        if (stackCh.First() != '[')
+                        {
+                            Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
+                            
+                        }
+                        else stackCh.Pop();
+                        break;
+                    case ')':
+                        if (stackCh.First() != '(')
+                        {
+                            Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
+                           
+                        }
+                        else stackCh.Pop();
+                        break;
+                    default:
+                        Console.WriteLine("\nThe paranthesis in the inserted string are incorrect\n");
+                        break;
+
+                }
+            
+            }
             
 
             Console.WriteLine("\nThe paranthesis in the inserted string are correct\n");
