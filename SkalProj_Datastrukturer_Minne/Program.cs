@@ -120,6 +120,7 @@ namespace SkalProj_Datastrukturer_Minne
                             theList.Add(inputStr.Substring(1, inputStr.Length - 1).Trim());
                         else
                             Console.WriteLine("The input cannot be only '+'\n");
+                        Console.WriteLine($"{theList.Count} items saved in the list\n");
                         break;
                     case '-':
                         if (!string.IsNullOrEmpty(inputStr) && inputStr.Trim().Length > 1)
@@ -132,6 +133,7 @@ namespace SkalProj_Datastrukturer_Minne
                         }   
                         else
                             Console.WriteLine("The input cannot be only '-'\n");
+                        Console.WriteLine($"{theList.Count} items saved in the list\n");
                         break;
                     case '*':
                         exit = true;
